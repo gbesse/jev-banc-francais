@@ -1,4 +1,4 @@
-// Purpose: Demonstrate French decision evaluation with synthetic cases.
+// Objectif : démontrer la frontière de décision sans appel réseau.
 import { evaluate } from "../src/index.mjs";
 import { createFakeProvider } from "../src/jev.mjs";
 const p = createFakeProvider(({ state }) => ({

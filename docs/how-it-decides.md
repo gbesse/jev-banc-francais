@@ -1,5 +1,5 @@
-# How it decides
+# Comment la décision est prise
 
-Jev Banc Français is a provider-neutral evaluation harness for closed-set French-language decisions. It reports accuracy, coverage, Brier score and calibration bins while preserving every case result.
+Le dépôt ne contient que des exemples synthétiques et ne formule aucune comparaison entre modèles. Une conclusion utile exige un jeu de données représentatif, licencié et tenu à l’écart de l’entraînement.
 
-The exact question and criteria live beside the call in [src/index.mjs](../src/index.mjs), making review and version control straightforward. Dates, identifiers, arithmetic, candidate generation, thresholds and state transitions remain code-owned. Synthetic demo probabilities are illustrative. Calibrate review thresholds on representative human labels before operational use.
+La question et les critères exacts sont versionnés dans [`src/index.mjs`](../src/index.mjs). Les probabilités de la démonstration sont synthétiques. Calibrez les seuils de revue sur des cas français annotés et représentatifs avant tout usage opérationnel.

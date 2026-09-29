@@ -1,4 +1,4 @@
-// Purpose: Evaluate closed-set model decisions with accuracy, abstention and calibration statistics.
+// Objectif : implémenter la frontière de décision métier propre au dépôt.
 export function brier(probabilities, label, labels) {
   return (
     labels.reduce(

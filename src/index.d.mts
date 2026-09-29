@@ -1,4 +1,4 @@
-// Purpose: Describe labeled French decision cases and evaluation reports.
+// Objectif : décrire les types de l’API métier publique.
 import type { JevProvider } from "./jev.mjs";
 export type EvaluationCase = {
   id: string;
