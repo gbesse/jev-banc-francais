@@ -1,4 +1,5 @@
 // Objectif : démontrer la frontière de décision sans appel réseau.
+import assert from "node:assert/strict";
 import { evaluate } from "../src/index.mjs";
 import { createFakeProvider } from "../src/jev.mjs";
 const p = createFakeProvider(({ state }) => ({
@@ -16,22 +17,22 @@ const p = createFakeProvider(({ state }) => ({
   usage: { input_tokens: 30, output_tokens: 0 },
 }));
 const criteria = { billing: "Facturation", technical: "Incident technique" };
-console.log(
-  await evaluate(
-    [
-      {
-        id: "fr-1",
-        input: "Je demande un remboursement",
-        label: "billing",
-        criteria,
-      },
-      {
-        id: "fr-2",
-        input: "Le serveur renvoie une erreur",
-        label: "technical",
-        criteria,
-      },
-    ],
-    p,
-  ),
+const resultat = await evaluate(
+  [
+    {
+      id: "fr-1",
+      input: "Je demande un remboursement",
+      label: "billing",
+      criteria,
+    },
+    {
+      id: "fr-2",
+      input: "Le serveur renvoie une erreur",
+      label: "technical",
+      criteria,
+    },
+  ],
+  p,
 );
+assert.equal(resultat.accuracy, 1);
+console.log(JSON.stringify(resultat, null, 2));

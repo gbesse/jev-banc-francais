@@ -1,6 +1,6 @@
 {
   "name": "@gbesse/jev-banc-francais",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Évalue des décisions d’IA typées sur des cas annotés en langue française.",
   "type": "module",
   "license": "MIT",

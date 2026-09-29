@@ -2,7 +2,7 @@
 
 **Évalue des décisions d’IA typées sur des cas annotés en langue française.**
 
-[![Tests](https://github.com/gbesse/jev-banc-francais/actions/workflows/test.yml/badge.svg)](https://github.com/gbesse/jev-banc-francais/actions/workflows/test.yml) [MIT](LICENSE) · Node.js 22+ · v0.1.1 · Documentation française
+[![Tests](https://github.com/gbesse/jev-banc-francais/actions/workflows/test.yml/badge.svg)](https://github.com/gbesse/jev-banc-francais/actions/workflows/test.yml) [MIT](LICENSE) · Node.js 22+ · v0.1.2 · Documentation française
 
 Ce banc d’évaluation indépendant du fournisseur calcule exactitude, couverture, score de Brier et calibration tout en conservant le résultat de chaque cas.
 
@@ -16,6 +16,61 @@ npm run demo
 ```
 
 La démonstration utilise uniquement des données et probabilités synthétiques. Elle n’effectue aucun appel réseau et ne constitue pas une mesure de qualité de Jev.
+
+## Exemple exécutable
+
+Cet exemple mesure un classifieur sur deux cas annotés en français. Il utilise un fournisseur Jev simulé : aucune clé API ni connexion réseau n’est nécessaire. L’assertion intégrée fait échouer la commande si le comportement attendu change.
+
+Le code complet de [`examples/demo.mjs`](examples/demo.mjs) est directement copiable :
+
+```js
+// Objectif : démontrer la frontière de décision sans appel réseau.
+import assert from "node:assert/strict";
+import { evaluate } from "../src/index.mjs";
+import { createFakeProvider } from "../src/jev.mjs";
+const p = createFakeProvider(({ state }) => ({
+  model: "jev-1.13.0",
+  answers: {
+    decision: {
+      type: "choice",
+      choice: state.includes("remboursement") ? "billing" : "technical",
+      probabilities: state.includes("remboursement")
+        ? { billing: 0.9, technical: 0.1 }
+        : { billing: 0.2, technical: 0.8 },
+      confidence: 0.9,
+    },
+  },
+  usage: { input_tokens: 30, output_tokens: 0 },
+}));
+const criteria = { billing: "Facturation", technical: "Incident technique" };
+const resultat = await evaluate(
+  [
+    {
+      id: "fr-1",
+      input: "Je demande un remboursement",
+      label: "billing",
+      criteria,
+    },
+    {
+      id: "fr-2",
+      input: "Le serveur renvoie une erreur",
+      label: "technical",
+      criteria,
+    },
+  ],
+  p,
+);
+assert.equal(resultat.accuracy, 1);
+console.log(JSON.stringify(resultat, null, 2));
+```
+
+Lancez-le avec :
+
+```sh
+npm run demo
+```
+
+Résultat à repérer : `accuracy: 1`.
 
 ## Utilisation de la bibliothèque
 
