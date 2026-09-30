@@ -2,7 +2,7 @@
 
 **Évalue des décisions d’IA typées sur des cas annotés en langue française.**
 
-[![Tests](https://github.com/gbesse/jev-banc-francais/actions/workflows/test.yml/badge.svg)](https://github.com/gbesse/jev-banc-francais/actions/workflows/test.yml) [MIT](LICENSE) · Node.js 22+ · v0.1.2 · Documentation française
+[![Tests](https://github.com/gbesse/jev-banc-francais/actions/workflows/test.yml/badge.svg)](https://github.com/gbesse/jev-banc-francais/actions/workflows/test.yml) [MIT](LICENSE) · Node.js 22+ · v0.1.3 · Documentation française
 
 Ce banc d’évaluation indépendant du fournisseur calcule exactitude, couverture, score de Brier et calibration tout en conservant le résultat de chaque cas.
 
@@ -67,10 +67,20 @@ console.log(JSON.stringify(resultat, null, 2));
 Lancez-le avec :
 
 ```sh
-npm run demo
+npm run demo:principal
 ```
 
 Résultat à repérer : `accuracy: 1`.
+
+### Cas limite à tester
+
+Deux rapports d’évaluation peuvent être comparés sans réinterroger Jev. Le code se trouve dans [`examples/cas-limite.mjs`](examples/cas-limite.mjs).
+
+```sh
+npm run demo:limite
+```
+
+Résultat à repérer : `accuracyDelta: 0.2 · brierDelta: -0.1`. La commande `npm run demo` exécute les deux exemples.
 
 ## Utilisation de la bibliothèque
 
